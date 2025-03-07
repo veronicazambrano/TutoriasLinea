@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutores - Sistema de Tutorías</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-back {
+            margin-bottom: 15px;
+        }
+        .card {
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Tutores</h1>
+    <a href="/" class="btn btn-secondary btn-back">Volver al inicio</a>
+
+    <!-- Formulario para Subir Material -->
+    <h3 class="mt-4">Subir Material de Estudio</h3>
+    <form action="/subir-material-tutor" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="titulo">Título del Material</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" required>
+        </div>
+        <div class="form-group">
+            <label for="archivo">Archivo</label>
+            <input type="file" class="form-control" id="archivo" name="archivo" required>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Subir Material</button>
+    </form>
+
+    <!-- Material de Estudio -->
+    <h3 class="mt-4">Material de Estudio</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Tutor</th>
+            <th>Archivo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="material : ${materiales}">
+            <td th:text="${material.titulo}">Título</td>
+            <td th:text="${material.tutor != null ? material.tutor.nombre : 'Veronica Zambrano'}">Tutor</td>
+            <td>
+                <a th:href="@{'/uploads/' + ${material.nombreArchivo}}" download>Descargar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

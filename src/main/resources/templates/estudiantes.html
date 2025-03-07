@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudiantes - Sistema de Tutorías</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-back {
+            margin-bottom: 15px;
+        }
+        .card {
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Encuentra un Tutor</h1>
+    <a href="/" class="btn btn-secondary btn-back">Volver al inicio</a>
+
+    <!-- Lista de Tutores -->
+    <h3>Lista de Tutores Disponibles</h3>
+    <div class="row">
+        <div class="col-md-4" th:each="tutor : ${tutores}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${tutor.nombre}">Nombre del Tutor</h5>
+                    <p class="card-text"><strong>Área:</strong> <span th:text="${tutor.area}">Matemáticas</span></p>
+                    <a href="#" class="btn btn-primary">Agendar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Material de Estudio -->
+    <h3 class="mt-4">Material de Estudio</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Tutor</th>
+            <th>Archivo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="material : ${materiales}">
+            <td th:text="${material.titulo}">Título</td>
+            <td th:text="${material.tutor != null ? material.tutor.nombre : 'Veronica Zambrano'}">Tutor</td>
+            <td>
+                <a th:href="@{'/uploads/' + ${material.nombreArchivo}}" download>Descargar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
